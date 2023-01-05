@@ -1,0 +1,29 @@
+<template>
+  <header class="
+      sticky
+      top-0
+      z-50
+      flex
+      justify-between
+      items-center
+      space-x-1
+      border-b
+      bg-white
+      p-4
+      shadow-md
+"
+  >
+    <a class="font-mono text-3xl" href="#">CarTrader</a>
+  </header>
+
+</template>
+
+<script>
+export default {
+  name: "TheNavbar"
+}
+</script>
+
+<style scoped>
+
+</style>
