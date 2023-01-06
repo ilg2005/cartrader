@@ -10,8 +10,8 @@
     "
   >
     <div class="absolute z-10 flex h-full w-full items-center justify-center">
-      <div class="w-1/2 text-center">
-        <h1 class="mb-10 font-serif text-8xl text-white">Find your drive</h1>
+      <div class="w-full sm:w-1/2 text-center">
+        <h1 class="mb-10 font-serif text-6xl sm:text-8xl text-white">Find your drive</h1>
         <HomeSearchBar/>
       </div>
     </div>
