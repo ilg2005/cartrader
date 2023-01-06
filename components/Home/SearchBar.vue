@@ -14,25 +14,32 @@
                 mx-auto
               "
   >
-    <input class="
+    <input v-model="city"
+           class="
                     py-3
                     px-5
                     w-full
                     text-2xl
-                    rounded-full
                     focus:outline-none
                    "
+           :class="cityError ? 'bg-red-200 border-red-400 border-2 rounded-l-full' : 'rounded-full'"
            placeholder="Search by city..."
            type="text"
     >
-    <button class="bg-sky-500 px-10 text-white">Search</button>
+    <button class="bg-sky-500 px-10 text-white" @click="search">Search</button>
   </div>
 
 </template>
 
-<script>
-export default {
-  name: "HomeSearchBar"
+<script setup>
+const city = ref('');
+const cityError = ref(false);
+const search = () => {
+  if (!city.value) {
+    cityError.value = true;
+  } else {
+    navigateTo(`/city/${city.value}/car`);
+  }
 }
 </script>
 
