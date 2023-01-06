@@ -13,7 +13,7 @@
       shadow-md
 "
   >
-    <a class="font-mono text-3xl" href="#">CarTrader</a>
+    <NuxtLink class="font-mono text-3xl" to="/">CarTrader</NuxtLink>
   </header>
 
 </template>
