@@ -26,7 +26,9 @@
            placeholder="Search by city..."
            type="text"
     >
-    <button class="bg-sky-500 px-10 text-white" @click="search">Search</button>
+    <button class="bg-sky-500 px-10 text-white"
+            @click="search"
+    >Search</button>
   </div>
 
 </template>
