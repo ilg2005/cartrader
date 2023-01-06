@@ -4,15 +4,9 @@
   </div>
 </template>
 
-<script>
-import HomeHero from "~/components/Home/Hero.vue";
-
-export default {
-  name: "index",
-  components: {HomeHero}
-}
+<script setup>
+useHead({
+  title: 'Cartrader - Home'
+});
 </script>
 
-<style scoped>
-
-</style>

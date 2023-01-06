@@ -14,3 +14,12 @@
 
 </template>
 
+<script setup>
+const route = useRoute();
+const city = route.params.city;
+const model = route.params.make ? route.params.make : 'cars';
+
+useHead({
+  title: `${capitalize(model)} in ${capitalize(city)}`
+})
+</script>

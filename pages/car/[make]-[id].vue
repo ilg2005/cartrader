@@ -12,10 +12,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "[make]-[id]"
-}
+<script setup>
+import {capitalize} from "~/composables/capitalize";
+
+const route = useRoute();
+useHead({
+  title: capitalize(route.params.make)
+})
 </script>
 
 <style scoped>
