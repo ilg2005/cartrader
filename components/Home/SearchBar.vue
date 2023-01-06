@@ -2,7 +2,8 @@
   <div
       class="
                 font-serif
-                w-[1000px]
+                w-[300px]
+                sm:w-full
                 text-2xl
                 rounded-full
                 bg-white
