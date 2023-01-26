@@ -1,10 +1,12 @@
 <template>
-  <div class="w-3/5 mx-auto">
-    <CarHero/>
+  <div class="w-3/5 mx-auto"
+       v-if="car"
+  >
+    <CarHero :product="car"/>
 
-    <CarAttributes/>
+    <CarAttributes :attributes="car.features"/>
 
-    <CarDescription/>
+    <CarDescription :description="car.description"/>
 
     <CarContact/>
   </div>
@@ -13,8 +15,12 @@
 
 <script setup>
 import {capitalize} from "~/composables/capitalize";
+import {useCars} from "~/composables/useCars";
 
 const route = useRoute();
+const cars = useCars();
+
+const car = computed(() => cars.find((product) => product.id === parseInt(route.params.id)));
 
 definePageMeta({
   layout: "custom"
