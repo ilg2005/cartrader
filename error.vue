@@ -4,16 +4,22 @@
     <p class="mt-7 text-4xl">
       {{ error.message }}
     </p>
-    <NuxtLink class="mt-10 rounded-xl py-2 px-4 text-2xl bg-emerald-200 shadow-xl cursor-pointer border border-emerald-500"
-              to="/">
+    <button class="mt-10 rounded-xl py-2 px-4 text-2xl bg-emerald-200 shadow-xl cursor-pointer border border-emerald-500"
+              @click="handleError">
       Go Back
-    </NuxtLink>
+    </button>
   </div>
 </template>
 
 <script setup>
 
 const error = useError();
+
+const handleError = () => {
+  clearError({
+    redirect: "/",
+  });
+};
 
 </script>
 

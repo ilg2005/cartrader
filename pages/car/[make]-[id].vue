@@ -22,6 +22,13 @@ const cars = useCars();
 
 const car = computed(() => cars.find((product) => product.id === parseInt(route.params.id)));
 
+if (!car.value) {
+  throw createError({
+    statusCode: 404,
+    message: `Car with ID of '${route.params.id}' does not exist!`
+  })
+}
+
 definePageMeta({
   layout: "custom"
 });
