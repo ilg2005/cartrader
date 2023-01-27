@@ -29,6 +29,7 @@
 </template>
 
 <script setup>
+
 const route = useRoute();
 
 const modal = reactive({
@@ -55,9 +56,16 @@ const city = ref();
 
 const onChangeInput = () => {
   if (!city.value) return;
-  updateModal('location');
-  navigateTo(`/city/${city.value}/car/${route.params.make}`);
-  city.value = '';
+  if (!isNaN(parseInt(city.value))) {
+    throw createError({
+      statusCode: 400,
+      message: 'Invalid format!',
+    })
+  }
+    updateModal('location');
+    navigateTo(`/city/${city.value}/car/${route.params.make}`);
+    city.value = '';
+
 };
 </script>
 
