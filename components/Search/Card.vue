@@ -3,11 +3,11 @@
        @click="navigateTo(`/car/${product.name}-${product.id}`)"
   >
 
-    <img
+    <nuxt-img
         :src="product.url"
         alt=""
         class="h-full mr-1 md:mr-8 w-1/2"
-    >
+    />
 
     <div class="px-4 pt-2 flex flex-col">
       <div class="flex flex-col sm:flex-row sm:justify-between">

@@ -1,9 +1,9 @@
 <template>
   <div class="mt-10">
-    <img :src="product.url"
+    <nuxt-img :src="product.url"
          alt=""
          class="w-full"
-    >
+    />
     <h1 class="mt-10 text-4xl">{{ product.name }}</h1>
     <div class="text-slate-500
             flex
