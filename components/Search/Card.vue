@@ -12,9 +12,9 @@
       <div class="flex justify-between items-center ">
         <h1 class="text-xl lg:text-2xl text-blue-700 mb-2 mr-2">
           {{ product.name }}</h1>
-        <div  class="flex-none py-2 px-1 z-20 mb-2"
-              @click.stop="toggleFavorite">
-          <img class="w-6 h-6" :src="isFavorite ? heartFilled : heartOutline" alt="isFavorite"
+        <div class="flex-none py-2 px-1 z-20 mb-2"
+             @click.stop="emit('favor')">
+          <img class="w-6 h-6" :src="favored ? heartFilled : heartOutline" alt="isFavorite"
           />
         </div>
       </div>
@@ -24,19 +24,18 @@
 
   </div>
 
-
 </template>
 
 <script setup>
 import heartFilled from "@/assets/heartFilled.png";
 import heartOutline from "@/assets/heartOutline.png";
 
-const car = defineProps(['product']);
-const isFavorite = useState(`favored-${car.product.id}`, () => false);
+defineProps({
+  'product': Object,
+  'favored': Boolean
+});
 
-const toggleFavorite = () => {
-  isFavorite.value = !isFavorite.value;
-}
+const emit = defineEmits(['favor']);
 
 </script>
 

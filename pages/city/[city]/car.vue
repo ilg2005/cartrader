@@ -4,14 +4,18 @@
     <NuxtErrorBoundary>
       <SearchSideBar/>
 
-      <!--      CAR CARDS BEGIN   -->
-      <div class="flex flex-col">
-        <Card v-for="car in cars"
-              :key="car.id"
-              :product="car"
-        />
-      </div>
-      <!--      CAR CARDS END   -->
+      <ClientOnly>
+        <!--      CAR CARDS BEGIN   -->
+        <div class="flex flex-col">
+          <Card v-for="car in cars"
+                :key="car.id"
+                :product="car"
+                @favor="favoriteHandler(car.id)"
+                :favored="car.id in favorite"
+          />
+        </div>
+        <!--      CAR CARDS END   -->
+      </ClientOnly>
 
       <template #error="{error}">
         <div class="text-center mx-auto flex flex-col">
@@ -39,6 +43,18 @@ const cars = useCars();
 const route = useRoute();
 const city = route.params.city;
 const model = route.params.make ? route.params.make : 'cars';
+
+const favorite = useLocalStorage('favorite', {});
+const favoriteHandler = (id) => {
+  if (id in favorite.value) {
+    delete favorite.value[id];
+  } else {
+    favorite.value = {
+      ...favorite.value,
+      [id]: true
+    }
+  }
+}
 
 definePageMeta({
   layout: "custom"
