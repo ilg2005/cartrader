@@ -15,6 +15,7 @@
               "
   >
     <input v-model="city"
+           @keyup.enter="search"
            class="
                     py-3
                     px-5
