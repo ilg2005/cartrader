@@ -8,13 +8,15 @@
         class="h-full mr-1 md:mr-8 w-1/2"
     />
 
-    <div class="px-4 pt-2 flex flex-col ">
-      <div class="flex justify-between ">
-        <h1 class="text-xl lg:text-2xl text-blue-700 mb-2 mr-10">
+    <div class="px-4 flex flex-col ">
+      <div class="flex justify-between items-center ">
+        <h1 class="text-xl lg:text-2xl text-blue-700 mb-2 mr-2">
           {{ product.name }}</h1>
-        <img class="w-6 h-6 z-20 mb-2" :src="isFavorite ? heartFilled : heartOutline" alt="isFavorite"
-             @click.stop="toggleFavorite"
-        />
+        <div  class="flex-none py-2 px-1 z-20 mb-2"
+              @click.stop="toggleFavorite">
+          <img class="w-6 h-6" :src="isFavorite ? heartFilled : heartOutline" alt="isFavorite"
+          />
+        </div>
       </div>
       <p class="text-xl font-semibold">${{ product.price }}</p>
       <p class="hidden md:block text-gray-700">{{ product.description }}</p>
