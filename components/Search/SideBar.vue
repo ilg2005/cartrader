@@ -1,7 +1,7 @@
 <template>
   <div class="shadow border w-full mr-10 z-30 h-1/2">
 
-    <!--  Location Filter Starts    -->
+    <!--  Location Filter Start    -->
     <div class="p-5 flex justify-between relative cursor-pointer border-b">
       <h3 class="mr-2">Location</h3>
       <h3 @click="updateModal('location')"
@@ -15,9 +15,9 @@
         </button>
       </div>
     </div>
-    <!--  Location Filter Ends    -->
+    <!--  Location Filter End    -->
 
-    <!--  Makes Filter Starts    -->
+    <!--  Makes Filter Start    -->
     <div class="p-5 flex justify-between relative cursor-pointer border-b">
       <h3 class="mr-2">Make</h3>
       <h3 @click="updateModal('make')"
@@ -32,14 +32,25 @@
         >{{ make }}</h4>
       </div>
     </div>
-    <!--  Makes Filter Ends    -->
+    <!--  Makes Filter End    -->
 
-    <!--  Price Filter Starts    -->
+    <!--  Price Filter Start    -->
     <div class="p-5 flex justify-between relative cursor-pointer border-b">
       <h3 class="mr-2">Price</h3>
-      <h3 class="text-blue-400 capitalize">Any</h3>
+      <h3 class="text-blue-400 capitalize"
+          @click="updateModal('price')"
+      >{{ priceRangeText || 'any' }}</h3>
+      <div v-if="modal.price"
+           class="absolute border shadow left-56 p-5 top-1 -m-1 bg-white">
+        <input class="border p-1 rounded" type="number" placeholder="Min price" v-model="priceRange.minPrice">
+        <input class="border p-1 rounded" type="number" placeholder="Max price" v-model="priceRange.maxPrice">
+        <button @click="onChangePrice"
+                class="bg-blue-400 w-full mt-2 rounded text-white p-1">Apply
+        </button>
+      </div>
+
     </div>
-    <!--  Price Filter Ends    -->
+    <!--  Price Filter End    -->
 
   </div>
 
@@ -48,6 +59,7 @@
 <script setup>
 
 const route = useRoute();
+const router = useRouter();
 
 const modal = reactive({
   location: false,
@@ -91,6 +103,35 @@ const onMakeChange = (make) => {
   updateModal('make');
   navigateTo(`/city/${route.params.city}/car/${make}`);
 };
+
+const priceRange = reactive({
+  minPrice: '',
+  maxPrice: ''
+});
+
+const priceRangeText = computed(() => {
+  const min = router.queryParams.minPrice;
+  const max = router.queryParams.maxPrice;
+
+  return (!min && !max) ? 'any' :
+  (!min && max) ? `< $${max}` :
+  (min && !max) ? `> $${min}` :
+  `$${min}-$${max}`;
+});
+
+const onChangePrice = () => {
+  /*if (!city.value) return;
+  if (!isNaN(parseInt(city.value))) {
+    throw createError({
+      statusCode: 400,
+      message: 'Invalid format!',
+    })
+  }*/
+  updateModal('price');
+  router.push(`/city/${route.params.location}/car/${route.params.make}?minPrice=${priceRange.minPrice}&maxPrice=${priceRange.maxPrice}`)
+
+};
+
 
 </script>
 
