@@ -35,10 +35,10 @@
 
 <script setup>
 
-import Card from "~/components/Search/Card.vue";
-import {useCars} from "~/composables/useCars";
+import Card from "@/components/Search/Card.vue";
+import {useCars} from "@/composables/useCars";
 
-const cars = useCars();
+const {cars} = useCars();
 
 const route = useRoute();
 const city = route.params.city;
