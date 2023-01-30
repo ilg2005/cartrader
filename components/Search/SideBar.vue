@@ -4,14 +4,14 @@
     <!--  Location Filter Start    -->
     <div class="p-5 flex justify-between relative cursor-pointer border-b">
       <h3 class="mr-2">Location</h3>
-      <h3 @click="updateModal('location')"
-          class="text-blue-400 capitalize">{{ route.params.city }}</h3>
+      <h3 class="text-blue-400 capitalize"
+          @click="updateModal('location')">{{ route.params.city }}</h3>
 
       <div v-if="modal.location"
            class="absolute border shadow left-56 p-5 top-1 -m-1 bg-white">
-        <input class="border p-1 rounded" type="text" v-model="city">
-        <button @click="onChangeInput"
-                class="bg-blue-400 w-full mt-2 rounded text-white p-1">Apply
+        <input v-model="city" class="border p-1 rounded" type="text">
+        <button class="bg-blue-400 w-full mt-2 rounded text-white p-1"
+                @click="onChangeInput">Apply
         </button>
       </div>
     </div>
@@ -20,14 +20,14 @@
     <!--  Makes Filter Start    -->
     <div class="p-5 flex justify-between relative cursor-pointer border-b">
       <h3 class="mr-2">Make</h3>
-      <h3 @click="updateModal('make')"
-          class="text-blue-400 capitalize">{{ route.params.make || 'any' }}</h3>
+      <h3 class="text-blue-400 capitalize"
+          @click="updateModal('make')">{{ route.params.make || 'any' }}</h3>
       <div v-if="modal.make"
            class="absolute border shadow left-56 p-5 top-1 -m-1 bg-white w-[600px] flex justify-between flex-wrap">
-        <h4 class="w-1/3 hover:font-bold"
-            :class="{'font-bold': make === capitalize(route.params.make)}"
-            v-for="make in makes"
+        <h4 v-for="make in makes"
             :key=make
+            :class="{'font-bold': make === capitalize(route.params.make)}"
+            class="w-1/3 hover:font-bold"
             @click="onMakeChange(make)"
         >{{ make }}</h4>
       </div>
@@ -39,13 +39,13 @@
       <h3 class="mr-2">Price</h3>
       <h3 class="text-blue-400 capitalize"
           @click="updateModal('price')"
-      >{{ priceRangeText || 'any' }}</h3>
+      >{{ priceRangeText }}</h3>
       <div v-if="modal.price"
            class="absolute border shadow left-56 p-5 top-1 -m-1 bg-white">
-        <input class="border p-1 rounded" type="number" placeholder="Min price" v-model="priceRange.minPrice">
-        <input class="border p-1 rounded" type="number" placeholder="Max price" v-model="priceRange.maxPrice">
-        <button @click="onChangePrice"
-                class="bg-blue-400 w-full mt-2 rounded text-white p-1">Apply
+        <input v-model="priceRange.minPrice" class="border p-1 rounded" placeholder="Min price" type="number">
+        <input v-model="priceRange.maxPrice" class="border p-1 rounded" placeholder="Max price" type="number">
+        <button class="bg-blue-400 w-full mt-2 rounded text-white p-1"
+                @click="onChangePrice">Apply
         </button>
       </div>
 
@@ -110,25 +110,36 @@ const priceRange = reactive({
 });
 
 const priceRangeText = computed(() => {
-  const min = router.queryParams.minPrice;
-  const max = router.queryParams.maxPrice;
+  const min = route.query.minPrice;
+  const max = route.query.maxPrice;
 
-  return (!min && !max) ? 'any' :
-  (!min && max) ? `< $${max}` :
-  (min && !max) ? `> $${min}` :
-  `$${min}-$${max}`;
+  if (!min && !max) {
+    return 'any';
+  } else if (!min && max) {
+    return `< $${max}`;
+  } else if (min && !max) {
+    return `> $${min}`;
+  } else {
+    return `$${min}-$${max}`;
+  }
+
 });
 
 const onChangePrice = () => {
-  /*if (!city.value) return;
-  if (!isNaN(parseInt(city.value))) {
+  if (priceRange.minPrice && priceRange.maxPrice && (priceRange.minPrice > priceRange.maxPrice)) {
     throw createError({
       statusCode: 400,
-      message: 'Invalid format!',
+      message: 'Min price should be less than max price!',
     })
-  }*/
+  }
   updateModal('price');
-  router.push(`/city/${route.params.location}/car/${route.params.make}?minPrice=${priceRange.minPrice}&maxPrice=${priceRange.maxPrice}`)
+
+  router.push({
+    query: {
+      minPrice: priceRange.minPrice,
+      maxPrice: priceRange.maxPrice,
+    }
+});
 
 };
 
