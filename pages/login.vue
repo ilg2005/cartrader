@@ -1,6 +1,6 @@
 <template>
 <div class="mt-10">
-  <p class="text-xl">Current user: {{ supabase }}</p>
+  <p class="text-xl">Supabase connection: </p>
 
   <AuthCard class="mb-7"/>
 
@@ -12,20 +12,12 @@
 
 <script setup>
 
-import {createClient} from "@supabase/supabase-js";
-
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
-
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 definePageMeta({
   layout: 'custom'
 });
 
 /*
-const user = useSupabaseUser();
-*/
 const login = async () => {
   const {data, error} = await supabase.auth.signInWithOAuth({
     provider: 'discord'
@@ -36,6 +28,7 @@ const login = async () => {
     console.log(data);
   }
 }
+*/
 </script>
 
 <style scoped>

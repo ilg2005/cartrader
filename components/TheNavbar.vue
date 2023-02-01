@@ -27,28 +27,11 @@
 </template>
 
 <script setup>
-const user = useSupabaseUser();
-const supabase = useSupabaseClient();
 
-const logout = async () => {
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    console.log(error);
-  }
-  /*To Do logout manually: */
-  try {
-    await $fetch('/api/_supabase/session', {
-      method: "POST",
-      body: {event: "SIGNED_OUT", session: null}
+const user = ref();
 
-    })
-  } catch (e) {
-      return console.log(e);
-  }
-
-  user.value = null;
-  navigateTo('/');
-
+const logout =  () => {
+  //
 }
 </script>
 
