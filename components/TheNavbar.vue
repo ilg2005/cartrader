@@ -17,7 +17,7 @@
 
     <div v-if="user" class="flex">
       <NuxtLink to="/profile/listings" class="mr-5">Profile</NuxtLink>
-      <p class="cursor-pointer" @click="logout">Logout</p>
+      <p class="cursor-pointer" @click="client.auth.signOut()">Logout</p>
     </div>
     <div v-else class="">
       <NuxtLink to="/login">Login</NuxtLink>
@@ -26,13 +26,11 @@
 
 </template>
 
-<script setup>
+<script setup lang="ts">
 
-const user = ref();
+const user = useSupabaseUser();
+const client = useSupabaseAuthClient();
 
-const logout =  () => {
-  //
-}
 </script>
 
 <style scoped>
