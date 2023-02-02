@@ -4,9 +4,19 @@ const { auth } = useSupabaseAuthClient();
 
 watchEffect(() => {
   if (user.value) {
-    navigateTo('/profile/listings/index')
+    navigateTo('/profile/listings');
   }
-})
+});
+
+
+const login = async () => {
+  try {
+    await auth.signInWithOAuth({ provider: 'github' });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 </script>
 
 <template>
@@ -17,7 +27,7 @@ watchEffect(() => {
     <AuthProviderCard>
       <button
           class="flex justify-center text-xl mt-3 mdi-github bg-white px-10 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 font-bold"
-          @click="auth.signInWithOAuth({ provider: 'github' })"
+          @click="login"
       ><span></span>
         Github</button>
     </AuthProviderCard>
