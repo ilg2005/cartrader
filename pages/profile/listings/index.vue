@@ -23,7 +23,7 @@
 import {useCars} from "~/composables/useCars";
 
 definePageMeta({
-  layout: 'custom'
+  layout: 'custom',
 });
 
 const {listings} = useCars();

@@ -1,17 +1,9 @@
-<script setup lang="ts">
-const user = useSupabaseUser();
-const { auth } = useSupabaseAuthClient();
-
-watchEffect(() => {
-  if (user.value) {
-    navigateTo('/profile/listings');
-  }
-});
-
+<script lang="ts" setup>
+const {auth} = useSupabaseAuthClient();
 
 const login = async () => {
   try {
-    await auth.signInWithOAuth({ provider: 'github' });
+    await auth.signInWithOAuth({provider: 'github'});
   } catch (e) {
     console.log(e);
   }
@@ -27,9 +19,9 @@ const login = async () => {
     <AuthProviderCard>
       <button
           class="flex justify-center text-xl mt-3 mdi-github bg-white px-10 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 font-bold"
-          @click="login"
-      ><span></span>
-        Github</button>
+          @click="login">
+        Github
+      </button>
     </AuthProviderCard>
   </div>
 </template>

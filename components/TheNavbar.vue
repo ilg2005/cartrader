@@ -16,20 +16,26 @@
     <NuxtLink class="font-mono text-3xl" to="/">CarTrader</NuxtLink>
 
     <div v-if="user" class="flex">
-      <NuxtLink to="/profile/listings" class="mr-5">Profile</NuxtLink>
-      <p class="cursor-pointer" @click="client.auth.signOut()">Logout</p>
+      <NuxtLink class="mr-5" to="/profile/listings">Profile</NuxtLink>
+      <p class="cursor-pointer" @click="logout">Logout</p>
     </div>
-    <div v-else class="">
+    <div v-else-if="route.name !== 'login'" class="">
       <NuxtLink to="/login">Login</NuxtLink>
     </div>
   </header>
 
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 
 const user = useSupabaseUser();
 const client = useSupabaseAuthClient();
+const route = useRoute();
+
+const logout = () => {
+  client.auth.signOut();
+  navigateTo('/');
+}
 
 </script>
 
