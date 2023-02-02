@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 const {auth} = useSupabaseAuthClient();
 
+const loading = ref(false);
 const login = async () => {
+  loading.value = true;
   try {
     await auth.signInWithOAuth({provider: 'github'});
   } catch (e) {
@@ -23,5 +25,8 @@ const login = async () => {
         Github
       </button>
     </AuthProviderCard>
+    <Spinner v-if="loading"
+             class="mt-10 flex justify-center items-center"
+    />
   </div>
 </template>
