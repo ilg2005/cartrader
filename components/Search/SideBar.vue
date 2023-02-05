@@ -30,12 +30,11 @@
         <h4 v-for="make in makes"
             :key=make
             class="w-1/3 hover:font-bold"
-            :class="{'font-bold': make === capitalize(route.query.make)}"
             @click="onMakeChange(make)"
 
         >{{ make }}</h4>
         <div class="absolute top-0 right-0 mb-2 p-2 font-bold cursor-pointer"
-             @click="onMakeChange('')"
+             @click="onMakeChange('any')"
         >x</div>
       </div>
     </div>
@@ -112,14 +111,11 @@ const {makes} = useCars();
 
 const onMakeChange = (make) => {
   updateModal('make');
-/*
   router.push({
     query: {
       make: make,
     }
   });
-*/
-  navigateTo(`/city/${route.params.city}/cars?make=${make}`);
 };
 
 const priceRange = reactive({

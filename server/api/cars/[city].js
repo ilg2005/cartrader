@@ -4,7 +4,7 @@ export default defineEventHandler((evt) => {
     const {make, minPrice, maxPrice} = getQuery(evt);
 
     let filteredCars = cars.filter((car) => car.city.toLowerCase() === city.toLowerCase());
-    if (make) {
+    if (make && make !== 'any') {
         filteredCars = filteredCars.filter((car) => car.make.toLowerCase() === make.toLowerCase());
     }
 
