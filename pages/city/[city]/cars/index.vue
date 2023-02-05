@@ -35,12 +35,11 @@
 
 <script setup>
 
-import Card from "@/components/Search/Card.vue";
+import Card from "~/components/Search/Card.vue";
 import useFetchCars from "~/composables/useFetchCars";
 
 const route = useRoute();
 const city = route.params.city;
-const model = route.params.make ? route.params.make : 'cars';
 
 
 const cars = await useFetchCars(city, {
@@ -68,6 +67,6 @@ definePageMeta({
 });
 
 useHead({
-  title: `${capitalize(model)} in ${capitalize(city)}`
+  title: `Cars in ${capitalize(city)}`
 })
 </script>

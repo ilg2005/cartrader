@@ -41,7 +41,7 @@ const search = () => {
   if (!city.value) {
     cityError.value = true;
   } else {
-    navigateTo(`/city/${city.value}/car`);
+    navigateTo(`/city/${city.value}/cars`);
   }
 }
 </script>
