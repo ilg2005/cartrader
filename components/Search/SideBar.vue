@@ -9,9 +9,12 @@
 
       <div v-if="modal.location"
            class="absolute border shadow left-56 p-5 top-1 -m-1 bg-white">
-        <input v-model="city" class="border p-1 rounded" type="text">
+        <input v-model="city" class="border p-1 rounded" type="text"
+               @keyup.enter="onChangeInput"
+        >
         <button class="bg-blue-400 w-full mt-2 rounded text-white p-1"
-                @click="onChangeInput">Apply
+                @click="onChangeInput"
+        >Apply
         </button>
       </div>
     </div>
@@ -42,8 +45,12 @@
       >{{ priceRangeText }}</h3>
       <div v-if="modal.price"
            class="absolute border shadow left-56 p-5 top-1 -m-1 bg-white">
-        <input v-model="priceRange.minPrice" class="border p-1 rounded" placeholder="Min price" type="number">
-        <input v-model="priceRange.maxPrice" class="border p-1 rounded" placeholder="Max price" type="number">
+        <input v-model="priceRange.minPrice" class="border p-1 rounded" placeholder="Min price" type="number"
+               @keyup.enter="onChangePrice"
+        >
+        <input v-model="priceRange.maxPrice" class="border p-1 rounded" placeholder="Max price" type="number"
+               @keyup.enter="onChangePrice"
+        >
         <button class="bg-blue-400 w-full mt-2 rounded text-white p-1"
                 @click="onChangePrice">Apply
         </button>
@@ -139,7 +146,7 @@ const onChangePrice = () => {
       minPrice: priceRange.minPrice,
       maxPrice: priceRange.maxPrice,
     }
-});
+  });
 
 };
 

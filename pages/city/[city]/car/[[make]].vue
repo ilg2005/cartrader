@@ -2,10 +2,8 @@
   <SearchCard/>
 </template>
 
-<script>
-export default {
-  name: "[[make]]"
-}
+<script setup>
+
 </script>
 
 <style scoped>

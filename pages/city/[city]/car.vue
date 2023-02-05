@@ -36,13 +36,20 @@
 <script setup>
 
 import Card from "@/components/Search/Card.vue";
-import {useCars} from "@/composables/useCars";
-
-const {cars} = useCars();
+import useFetchCars from "~/composables/useFetchCars";
 
 const route = useRoute();
 const city = route.params.city;
 const model = route.params.make ? route.params.make : 'cars';
+
+
+const cars = await useFetchCars(city, {
+  minPrice: route.query.minPrice,
+  maxPrice: route.query.maxPrice,
+  make: route.params.make,
+});
+
+
 
 const favorite = useLocalStorage('favorite', {});
 const favoriteHandler = (id) => {
