@@ -150,6 +150,7 @@ const onChangePrice = () => {
 
   router.push({
     query: {
+      make: route.query.make,
       minPrice: priceRange.minPrice,
       maxPrice: priceRange.maxPrice,
     }
