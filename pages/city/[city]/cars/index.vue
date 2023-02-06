@@ -48,6 +48,10 @@ const cars = await useFetchCars(city.value, {
   make: route.query.make,
 });
 
+const query = () => route.query;
+watch(query, () => {
+  window.location.reload();
+})
 
 
 const favorite = useLocalStorage('favorite', {});
