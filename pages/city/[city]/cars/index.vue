@@ -45,7 +45,7 @@ const city = route.params.city;
 const cars = await useFetchCars(city, {
   minPrice: route.query.minPrice,
   maxPrice: route.query.maxPrice,
-  make: route.params.make,
+  make: route.query.make,
 });
 
 
