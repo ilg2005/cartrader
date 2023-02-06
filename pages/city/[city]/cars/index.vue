@@ -39,10 +39,10 @@ import Card from "~/components/Search/Card.vue";
 import useFetchCars from "~/composables/useFetchCars";
 
 const route = useRoute();
-const city = route.params.city;
+const city = ref(route.params.city);
 
 
-const cars = await useFetchCars(city, {
+const cars = await useFetchCars(city.value, {
   minPrice: route.query.minPrice,
   maxPrice: route.query.maxPrice,
   make: route.query.make,
@@ -67,6 +67,6 @@ definePageMeta({
 });
 
 useHead({
-  title: `Cars in ${capitalize(city)}`
+  title: `Cars in ${capitalize(city.value)}`
 })
 </script>
