@@ -43,14 +43,13 @@ const city = ref(route.params.city);
 
 
 const {data: cars, refresh} = await useFetchCars(city.value, {
-  minPrice: route.query.minPrice,
-  maxPrice: route.query.maxPrice,
-  make: route.query.make,
+  minPrice: computed(() => route.query.minPrice),
+  maxPrice: computed(() => route.query.maxPrice),
+  make: computed(() => route.query.make),
 });
 
 const query = () => route.query;
 watch(query, () => {
-  console.log('updated');
   refresh();
 })
 
