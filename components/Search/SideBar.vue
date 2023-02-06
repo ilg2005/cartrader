@@ -113,7 +113,7 @@ const onMakeChange = (make) => {
   updateModal('make');
   router.push({
     query: {
-      make: make,
+      make: make.toLowerCase(),
     }
   });
 };
