@@ -16,7 +16,7 @@
 const error = useError();
 
 const handleError = () => {
-  clearError({redirect: "/"});
+  clearError({redirect: useRouter().back()});
 };
 
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex shadow border w-full overflow-hidden mb-5 cursor-pointer z-0"
-       @click="navigateTo(`/car/${product.name}-${product.id}`)"
+       @click="navigateTo(`/car/${product.id}`)"
   >
     <nuxt-img
         :src="product.url"
