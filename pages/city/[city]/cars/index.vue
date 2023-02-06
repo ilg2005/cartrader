@@ -9,9 +9,9 @@
         <div class="flex flex-col">
           <Card v-for="car in cars"
                 :key="car.id"
+                :favored="car.id in favorite"
                 :product="car"
                 @favor="favoriteHandler(car.id)"
-                :favored="car.id in favorite"
           />
         </div>
         <!--      CAR CARDS END   -->
@@ -42,7 +42,7 @@ const route = useRoute();
 const city = ref(route.params.city);
 
 
-const cars = await useFetchCars(city.value, {
+const {data: cars, refresh} = await useFetchCars(city.value, {
   minPrice: route.query.minPrice,
   maxPrice: route.query.maxPrice,
   make: route.query.make,
@@ -50,7 +50,8 @@ const cars = await useFetchCars(city.value, {
 
 const query = () => route.query;
 watch(query, () => {
-  window.location.reload();
+  console.log('updated');
+  refresh();
 })
 
 
