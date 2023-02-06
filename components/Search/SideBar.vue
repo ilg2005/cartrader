@@ -10,10 +10,10 @@
       <div v-if="modal.location"
            class="absolute border shadow left-56 p-5 top-1 -m-1 bg-white">
         <input v-model="city" class="border p-1 rounded" type="text"
-               @keyup.enter="onChangeInput"
+               @keyup.enter="onChangeLocation"
         >
         <button class="bg-blue-400 w-full mt-2 rounded text-white p-1"
-                @click="onChangeInput"
+                @click="onChangeLocation"
         >Apply
         </button>
       </div>
@@ -93,7 +93,7 @@ const updateModal = (key) => {
 
 const city = ref();
 
-const onChangeInput = () => {
+const onChangeLocation = () => {
   if (!city.value) return;
   if (!isNaN(parseInt(city.value))) {
     throw createError({
