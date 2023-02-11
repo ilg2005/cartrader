@@ -3,7 +3,7 @@
     <div class="mt-24">
       <h1 class="text-6xl">Create a New Listing</h1>
     </div>
-
+    <p v-if="errorMsg" class="mt-3 text-red-400 font-bold">{{ errorMsg }}</p>
     <div class="shadow rounded p-3 mt-5 flex flex-wrap justify-between">
       <ListingAdSelect
           title="Make *"
@@ -42,11 +42,13 @@
 
 <script setup>
 import {useCars} from "~/composables/useCars";
+import {useSupabaseUser} from "@nuxtjs/supabase/dist/runtime/composables/useSupabaseUser";
 
 definePageMeta({
   layout: 'custom',
 })
 
+const user = useSupabaseUser();
 const {makes} = useCars();
 
 const info = useState('adInfo', () => {
@@ -123,8 +125,31 @@ const isValid = computed(() => {
   }
   return true;
 });
-const submitFormHandler = () => {
-  console.log(info.value);
+
+const errorMsg = ref('');
+const submitFormHandler = async () => {
+  const body = {
+    ...info.value,
+    name: `${info.value.make} ${info.value.model}`,
+    city: info.value.city.toLowerCase(),
+    make: info.value.make.toLowerCase(),
+    model: info.value.model.toLowerCase(),
+    features: info.value.features.split(", "),
+    seats: parseInt(info.value.seats),
+    year: parseInt(info.value.year),
+    price: parseInt(info.value.price),
+    listerId: user.value.id,
+    image: 'random string'
+  }
+  try {
+    const response = await $fetch("/api/car/listings", {
+      method: "POST",
+      body
+    });
+    navigateTo("/profile/listings")
+  } catch (e) {
+      errorMsg.value = e.statusMessage;
+  }
 }
 </script>
 
