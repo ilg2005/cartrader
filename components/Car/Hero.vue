@@ -1,6 +1,6 @@
 <template>
   <div class="mt-10">
-    <nuxt-img :src="product.url"
+    <nuxt-img :src="product.image"
          alt=""
          class="w-full"
     />

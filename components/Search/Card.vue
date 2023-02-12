@@ -3,7 +3,7 @@
        @click="navigateTo(`/car/${product.id}`)"
   >
     <nuxt-img
-        :src="product.url"
+        :src="product.image"
         alt=""
         class="h-full mr-1 md:mr-8 w-1/2"
     />

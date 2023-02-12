@@ -7,7 +7,7 @@
       <ClientOnly>
         <!--      CAR CARDS BEGIN   -->
         <div class="flex flex-col w-3/4 " v-if="cars.length">
-          <Card v-for="car in cars"
+          <SearchCard v-for="car in cars"
                 :key="car.id"
                 :favored="car.id in favorite"
                 :product="car"
@@ -36,7 +36,6 @@
 
 <script setup>
 
-import Card from "~/components/Search/Card.vue";
 import useFetchCars from "~/composables/useFetchCars";
 
 const route = useRoute();
