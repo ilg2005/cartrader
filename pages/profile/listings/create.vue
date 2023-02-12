@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="sm:px-4 px-0">
     <div class="mt-24">
       <h1 class="text-6xl">Create a New Listing</h1>
     </div>
-    <p v-if="errorMsg" class="mt-3 text-red-400 font-bold">{{ errorMsg }}</p>
+    <p v-if="errorMsg" class="mt-3 bg-red-400 text-white font-bold px-4 py-2 rounded shadow">{{ errorMsg }}</p>
     <div class="shadow rounded p-3 mt-5 flex flex-wrap justify-between">
       <ListingAdSelect
           title="Make *"
@@ -40,9 +40,7 @@
   </div>
 </template>
 
-<script setup>
-import {useCars} from "~/composables/useCars";
-import {useSupabaseUser} from "@nuxtjs/supabase/dist/runtime/composables/useSupabaseUser";
+<script setup lang="ts">
 
 definePageMeta({
   layout: 'custom',
@@ -136,6 +134,7 @@ const submitFormHandler = async () => {
     model: info.value.model.toLowerCase(),
     features: info.value.features.split(", "),
     seats: parseInt(info.value.seats),
+    miles: parseInt(info.value.miles),
     year: parseInt(info.value.year),
     price: parseInt(info.value.price),
     listerId: user.value.id,
@@ -147,8 +146,8 @@ const submitFormHandler = async () => {
       body
     });
     navigateTo("/profile/listings")
-  } catch (e) {
-      errorMsg.value = e.statusMessage;
+  } catch (err) {
+      errorMsg.value = err.statusMessage;
   }
 }
 </script>
