@@ -1,6 +1,6 @@
 <template>
   <div class="mt-10">
-    <nuxt-img :src="product.image"
+    <nuxt-img :src="`${url + product.image}`"
          alt=""
          class="w-full"
     />
@@ -26,6 +26,7 @@
 
 <script setup>
 defineProps(['product']);
+const url = useRuntimeConfig().public.supabase.url + '/storage/v1/object/public/images/';
 </script>
 
 <style scoped>

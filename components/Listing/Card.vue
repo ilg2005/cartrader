@@ -4,12 +4,13 @@ const props = defineProps({
 });
 
 defineEmits(['deleteCard']);
+const url = useRuntimeConfig().public.supabase.url + '/storage/v1/object/public/images/';
 </script>
 
 <template>
   <div class="shadow rounded overflow-hidden flex justify-between mb-4">
     <div class="flex ">
-      <img alt="_" class="w-80 mr-3 h-44" :src="listing.image">
+      <img alt="_" class="w-80 mr-3 h-44" :src="`${url + listing.image}`">
       <div class="p-3">
         <h1 class="text-2xl">{{ listing.name }}</h1>
         <p class="text-blue-400">${{ listing.price }}</p>

@@ -2,11 +2,11 @@
 
   <div class="mt-32 flex">
     <NuxtErrorBoundary>
-      <SearchSideBar class="w-1/4"/>
+      <SearchSideBar class="w-1/5"/>
 
       <ClientOnly>
         <!--      CAR CARDS BEGIN   -->
-        <div class="flex flex-col w-3/4 " v-if="cars.length">
+        <div class="flex flex-col" v-if="cars.length">
           <SearchCard v-for="car in cars"
                 :key="car.id"
                 :favored="car.id in favorite"
