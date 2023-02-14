@@ -1,16 +1,17 @@
 <template>
   <div class="rounded shadow mt-20">
-    <ListingMessageCard/>
-    <ListingMessageCard/>
-    <ListingMessageCard/>
-    <ListingMessageCard/>
+    <ListingMessageCard v-for="message in messages"
+    :key="message.id"
+    :message="message"/>
   </div>
 </template>
 
 <script setup>
 definePageMeta({
   layout: 'custom'
-})
+});
+const route = useRoute();
+const {data: messages} = useFetch(`/api/car/listings/${route.params.id}/message`);
 </script>
 
 <style scoped>

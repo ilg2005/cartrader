@@ -2,18 +2,19 @@
 
   <div class="mt-32 flex">
     <NuxtErrorBoundary>
-      <SearchSideBar/>
+      <SearchSideBar class="w-1/5"/>
 
       <ClientOnly>
         <!--      CAR CARDS BEGIN   -->
-        <div class="flex flex-col">
-          <Card v-for="car in cars"
+        <div class="flex flex-col" v-if="cars.length">
+          <SearchCard v-for="car in cars"
                 :key="car.id"
+                :favored="car.id in favorite"
                 :product="car"
                 @favor="favoriteHandler(car.id)"
-                :favored="car.id in favorite"
           />
         </div>
+        <h1 v-else class="text-4xl  text-red-600 w-3/4 self-center"> No Cars Found With Filters</h1>
         <!--      CAR CARDS END   -->
       </ClientOnly>
 
@@ -35,20 +36,22 @@
 
 <script setup>
 
-import Card from "@/components/Search/Card.vue";
 import useFetchCars from "~/composables/useFetchCars";
 
 const route = useRoute();
-const city = route.params.city;
-const model = route.params.make ? route.params.make : 'cars';
+const city = ref(route.params.city);
 
 
-const cars = await useFetchCars(city, {
-  minPrice: route.query.minPrice,
-  maxPrice: route.query.maxPrice,
-  make: route.params.make,
+const {data: cars, refresh} = await useFetchCars(city.value, {
+  minPrice: computed(() => route.query.minPrice),
+  maxPrice: computed(() => route.query.maxPrice),
+  make: computed(() => route.query.make),
 });
 
+const query = () => route.query;
+watch(query, () => {
+  refresh();
+})
 
 
 const favorite = useLocalStorage('favorite', {});
@@ -68,6 +71,6 @@ definePageMeta({
 });
 
 useHead({
-  title: `${capitalize(model)} in ${capitalize(city)}`
+  title: `Cars in ${capitalize(city.value)}`
 })
 </script>

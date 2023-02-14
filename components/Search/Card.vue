@@ -1,9 +1,9 @@
 <template>
-  <div class="flex shadow border w-full overflow-hidden mb-5 cursor-pointer z-0"
-       @click="navigateTo(`/car/${product.name}-${product.id}`)"
+  <div class="flex shadow border overflow-hidden mb-5 cursor-pointer z-0"
+       @click="navigateTo(`/car/${product.id}`)"
   >
     <nuxt-img
-        :src="product.url"
+        :src="`${url + product.image}`"
         alt=""
         class="h-full mr-1 md:mr-8 w-1/2"
     />
@@ -36,7 +36,7 @@ defineProps({
 });
 
 const emit = defineEmits(['favor']);
-
+const url = useRuntimeConfig().public.supabase.url + '/storage/v1/object/public/images/';
 </script>
 
 <style scoped>

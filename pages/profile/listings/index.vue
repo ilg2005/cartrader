@@ -12,7 +12,9 @@
     <div class="shadow rounded p-3 mt-5">
       <ListingCard v-for="listing in listings"
                    :key="listing.id"
-                   :listing="listing"/>
+                   :listing="listing"
+                   @deleteCard="deleteCardHandler"
+      />
     </div>
 
   </div>
@@ -20,13 +22,19 @@
 
 <script setup>
 
-import {useCars} from "~/composables/useCars";
 
 definePageMeta({
   layout: 'custom',
 });
+const user = useSupabaseUser();
+const {data:listings} = await useFetch(`/api/car/listings/user/${user.value.id}`);
 
-const {listings} = useCars();
+const deleteCardHandler = async (id) => {
+  await $fetch(`/api/car/listings/${id}`, {
+    method: 'DELETE'
+  });
+  listings.value = listings.value.filter((listing) => listing.id !== id);
+}
 
 </script>
 

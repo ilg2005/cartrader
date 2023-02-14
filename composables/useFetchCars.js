@@ -1,6 +1,6 @@
 export default async (city, filters) => {
-    const {data, error} = await useFetch(`/api/cars/${city}`, {
-        params: {
+    const {data, refresh, error} = await useFetch(`/api/cars/${city}`, {
+        query: {
             ...filters,
         }
     });
@@ -11,6 +11,6 @@ export default async (city, filters) => {
         });
     }
 
-    return data;
+    return {data, refresh};
 };
 

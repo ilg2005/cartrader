@@ -10,10 +10,10 @@
       <div v-if="modal.location"
            class="absolute border shadow left-56 p-5 top-1 -m-1 bg-white">
         <input v-model="city" class="border p-1 rounded" type="text"
-               @keyup.enter="onChangeInput"
+               @keyup.enter="onChangeLocation"
         >
         <button class="bg-blue-400 w-full mt-2 rounded text-white p-1"
-                @click="onChangeInput"
+                @click="onChangeLocation"
         >Apply
         </button>
       </div>
@@ -24,15 +24,18 @@
     <div class="p-5 flex justify-between relative cursor-pointer border-b">
       <h3 class="mr-2">Make</h3>
       <h3 class="text-blue-400 capitalize"
-          @click="updateModal('make')">{{ route.params.make || 'any' }}</h3>
+          @click="updateModal('make')">{{ route.query.make || 'any' }}</h3>
       <div v-if="modal.make"
-           class="absolute border shadow left-56 p-5 top-1 -m-1 bg-white w-[600px] flex justify-between flex-wrap">
+           class="z-20 absolute border shadow left-56 p-5 top-1 -m-1 bg-white w-[600px] flex justify-between flex-wrap">
         <h4 v-for="make in makes"
             :key=make
-            :class="{'font-bold': make === capitalize(route.params.make)}"
             class="w-1/3 hover:font-bold"
             @click="onMakeChange(make)"
+
         >{{ make }}</h4>
+        <div class="absolute top-0 right-0 mb-2 p-2 font-bold cursor-pointer"
+             @click="onMakeChange('any')"
+        >x</div>
       </div>
     </div>
     <!--  Makes Filter End    -->
@@ -90,7 +93,7 @@ const updateModal = (key) => {
 
 const city = ref();
 
-const onChangeInput = () => {
+const onChangeLocation = () => {
   if (!city.value) return;
   if (!isNaN(parseInt(city.value))) {
     throw createError({
@@ -99,7 +102,7 @@ const onChangeInput = () => {
     })
   }
   updateModal('location');
-  navigateTo(`/city/${city.value}/car/${route.params.make}`);
+  navigateTo(`/city/${city.value}/cars`);
   city.value = '';
 
 };
@@ -108,7 +111,11 @@ const {makes} = useCars();
 
 const onMakeChange = (make) => {
   updateModal('make');
-  navigateTo(`/city/${route.params.city}/car/${make}`);
+  router.push({
+    query: {
+      make: make.toLowerCase(),
+    }
+  });
 };
 
 const priceRange = reactive({
@@ -143,6 +150,7 @@ const onChangePrice = () => {
 
   router.push({
     query: {
+      make: route.query.make,
       minPrice: priceRange.minPrice,
       maxPrice: priceRange.maxPrice,
     }

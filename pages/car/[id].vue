@@ -14,27 +14,25 @@
 </template>
 
 <script setup>
-import {capitalize} from "~/composables/capitalize";
-import {useCars} from "~/composables/useCars";
+import useFetchCar from "~/composables/useFetchCar";
 
 const route = useRoute();
-const {cars} = useCars();
-
-const car = computed(() => cars.find((product) => product.id === parseInt(route.params.id)));
-
-if (!car.value) {
+const {data: car} = await useFetchCar(route.params.id);
+if (!car) {
   throw createError({
     statusCode: 404,
-    message: `Car with ID of '${route.params.id}' does not exist!`
+    statusMessage: `Car with ID of '${route.params.id}' does not exist!`
   })
 }
+
+
 
 definePageMeta({
   layout: "custom"
 });
 
 useHead({
-  title: capitalize(route.params.make)
+  title: `Car-${route.params.id}`
 })
 </script>
 
