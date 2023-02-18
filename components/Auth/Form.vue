@@ -1,6 +1,8 @@
 <script setup>
 
 const authState = ref('login');
+const {register} = useAuth();
+
 
 const message = {
   login: "Don't have an account? Create one now",
@@ -16,13 +18,24 @@ const toggleAuthState = () => {
 const fields = reactive({
   email: '',
   password: ''
-})
+});
+
+
+const handleSubmit = async () => {
+  try {
+    await register(fields.email, fields.password);
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
 
 </script>
 
 <template>
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
-    <form class="shadow rounded-md overflow-hidden flex flex-col px-8 pt-8 mb-4 bg-black">
+    <form @submit.prevent="handleSubmit"
+          class="shadow rounded-md overflow-hidden flex flex-col px-8 pt-8 mb-4 bg-black">
       <label class="text-white mb-1 text-sm" for="">Email</label>
       <input v-model="fields.email"
              class="p-2 border w-100 rounded-md mb-4" name="email"
