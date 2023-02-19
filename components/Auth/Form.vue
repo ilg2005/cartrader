@@ -23,7 +23,12 @@ const fields = reactive({
 
 const handleSubmit = async () => {
   try {
-    await client.auth.signUp({email: fields.email, password: fields.password});
+    await client.auth.signUp({email: fields.email, password: fields.password,
+      options: {
+        emailRedirectTo: "http://localhost:3000/profile/listings"
+      }
+    });
+    alert("Open the email we sent you to verify your account!");
   } catch (e) {
     console.log(e);
     throw e;
