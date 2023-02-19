@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 
 const authState = ref('login');
-const {register} = useAuth();
+const client = useSupabaseAuthClient();
 
 
 const message = {
@@ -23,7 +23,7 @@ const fields = reactive({
 
 const handleSubmit = async () => {
   try {
-    await register(fields.email, fields.password);
+    await client.auth.signUp({email: fields.email, password: fields.password});
   } catch (e) {
     console.log(e);
     throw e;
